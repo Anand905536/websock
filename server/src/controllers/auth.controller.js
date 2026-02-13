@@ -9,7 +9,9 @@ export const register = async (req, res) => {
         }
 
         const ifExistingUser = await User.findOne({ email })
+        
         if (ifExistingUser) {
+            console.log("called")
             return res.status(409).json("user already exists")
         }
 
@@ -25,6 +27,7 @@ export const register = async (req, res) => {
         res.status(201).json({
             success: true,
             message: "user created successfully",
+            status: 1,
             user: {
                 id: user.id,
                 name: user.name,
@@ -54,7 +57,7 @@ export const login = async (req, res) => {
             return res.status(401).json("Invalid Credentials")
         }
 
-        res.status(200).json({ message: "login successfully" })
+        res.status(200).json({ message: "login successfully", status: 1 })
     } catch (err) {
         res.send(err.message)
     }
